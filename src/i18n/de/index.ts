@@ -176,7 +176,8 @@ const en = {
   bonjour_invite_join: 'Mit Code beitreten',
   bonjour_invite_code: 'Einladungscode',
   bonjour_invite_expires: 'Läuft ab',
-  bonjour_invite_rate_limited: 'Zu viele Einladungscodes. Warte eine Minute und versuche es erneut.',
+  bonjour_invite_rate_limited:
+    'Zu viele Einladungscodes. Warte eine Minute und versuche es erneut.',
   bonjour_invite_invalid: 'Dieser Einladungscode ist ungültig.',
   bonjour_invite_expired: 'Dieser Einladungscode ist abgelaufen.',
   bonjour_invite_used: 'Dieser Einladungscode wurde bereits verwendet.',

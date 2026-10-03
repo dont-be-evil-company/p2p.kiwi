@@ -690,11 +690,11 @@
     {#if invites.length}
       <ul class="list bg-base-100 rounded-box shadow-md mb-4">
         {#each invites as invite (invite.id)}
-          <li class="list-row flex flex-wrap gap-2 items-center">
-            <span class="font-mono tracking-widest">{invite.token}</span>
-            <span class="text-sm opacity-70">{L.bonjour_invite_expires()} {new Date(invite.expiresAt).toLocaleTimeString()}</span>
-            <button class="btn btn-sm" onclick={() => void onCopyInvite(invite.token)}>{L.bonjour_invite_copy()}</button>
-            <button class="btn btn-sm btn-ghost" onclick={() => void onRevokeInvite(invite.id)}>{L.bonjour_invite_revoke()}</button>
+          <li class="list-row flex-wrap gap-1 items-center">
+            <span class="font-mono tracking-widest bonjour-menu-entry-noop">{invite.token}</span>
+            <span class="text-sm opacity-70 bonjour-menu-entry-noop">{L.bonjour_invite_expires()} {new Date(invite.expiresAt).toLocaleTimeString()}</span>
+            <button class="btn btn-sm hover:btn-success" onclick={() => void onCopyInvite(invite.token)}>{L.bonjour_invite_copy()}</button>
+            <button class="btn btn-sm btn-ghost hover:btn-error" onclick={() => void onRevokeInvite(invite.id)}>{L.bonjour_invite_revoke()}</button>
           </li>
         {/each}
       </ul>
