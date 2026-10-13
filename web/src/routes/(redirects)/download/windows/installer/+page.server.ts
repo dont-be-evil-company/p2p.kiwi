@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit'
-import { DOWNLOAD_URLS } from '$lib/downloads'
+import { redirect } from '@sveltejs/kit';
+import { DOWNLOAD_URLS } from '$lib/downloads';
 
 export function load() {
-  redirect(302, DOWNLOAD_URLS.WINDOWS_X64_INSTALLER)
+	redirect(302, DOWNLOAD_URLS.WINDOWS_X64_INSTALLER);
 }

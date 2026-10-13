@@ -1,38 +1,38 @@
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import 'tailwindcss';
 @plugin 'daisyui' {
-  themes: dark --default;
+	themes: dark --default;
 }
 
 html,
 body {
-  font-family:
-    Fira Code,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
-    monospace;
+	font-family:
+		Fira Code,
+		Menlo,
+		Monaco,
+		Consolas,
+		'Courier New',
+		monospace;
 }
 
 :not(pre) > code {
-  padding: 0.125rem 0.375rem;
-  background: #101010;
-  border-radius: 0.25rem;
-  font-size: 0.875em;
+	padding: 0.125rem 0.375rem;
+	background: #101010;
+	border-radius: 0.25rem;
+	font-size: 0.875em;
 }
 
 .link-external {
-  position: relative;
-  padding-right: 1.25rem;
+	position: relative;
+	padding-right: 1.25rem;
 }
 
 .link-external::after {
-  content: '\f08e';
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+	content: '\f08e';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }

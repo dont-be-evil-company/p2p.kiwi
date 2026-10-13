@@ -108,49 +108,40 @@
 				<p class="mb-5">.. or download the one of the pre-built binaries here:</p>
 				<ul class="list-inside list-disc text-left">
 					<li>
-						<a
-							class="link link-info link-external"
-							href={resolve('/download/linux/deb/amd64')}>Linux .deb (amd64)</a
+						<a class="link link-info link-external" href={resolve('/download/linux/deb/amd64')}
+							>Linux .deb (amd64)</a
+						>
+					</li>
+					<li>
+						<a class="link link-info link-external" href={resolve('/download/linux/deb/arm64')}
+							>Linux .deb (arm64)</a
 						>
 					</li>
 					<li>
 						<a
 							class="link link-info link-external"
-							href={resolve('/download/linux/deb/arm64')}>Linux .deb (arm64)</a
+							href={resolve('/download/linux/appimage/x86_64')}>Linux .AppImage (x86_64)</a
 						>
 					</li>
 					<li>
-						<a
-							class="link link-info link-external"
-							href={resolve('/download/linux/appimage/x86_64')}
-							>Linux .AppImage (x86_64)</a
-						>
-					</li>
-					<li>
-						<a
-							class="link link-info link-external"
-							href={resolve('/download/linux/appimage/arm64')}
+						<a class="link link-info link-external" href={resolve('/download/linux/appimage/arm64')}
 							>Linux .AppImage (arm64)</a
 						>
 					</li>
 					<li>
-						<a
-							class="link link-info link-external"
-							href={resolve('/download/linux/flatpak/x86_64')}
+						<a class="link link-info link-external" href={resolve('/download/linux/flatpak/x86_64')}
 							>Linux .flatpak (x86_64)</a
 						>
 					</li>
 					<li>
 						<a
 							class="link link-info link-external"
-							href={resolve('/download/linux/flatpak/aarch64')}
-							>Linux .flatpak (aarch64)</a
+							href={resolve('/download/linux/flatpak/aarch64')}>Linux .flatpak (aarch64)</a
 						>
 					</li>
 					<li>
-						<a
-							class="link link-info link-external"
-							href={resolve('/download/linux/snap/amd64')}>Linux .snap (amd64)</a
+						<a class="link link-info link-external" href={resolve('/download/linux/snap/amd64')}
+							>Linux .snap (amd64)</a
 						>
 					</li>
 				</ul>
