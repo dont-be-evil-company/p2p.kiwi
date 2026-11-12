@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { fetchDocs, loadDoc } from '$lib/docs';
+import { fetchDocs, loadDoc } from '#lib/docs';
 import type { EntryGenerator, PageLoad } from './$types';
 
 export const entries: EntryGenerator = async () => {

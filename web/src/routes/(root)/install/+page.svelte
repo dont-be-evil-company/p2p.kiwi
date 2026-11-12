@@ -1,6 +1,6 @@
 <script lang="ts">
-	import HeadComponent from '$lib/HeadComponent.svelte';
-	import CodeBlock from '$lib/CodeBlock.svelte';
+	import HeadComponent from '#lib/HeadComponent.svelte';
+	import CodeBlock from '#lib/CodeBlock.svelte';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { redirect } from '@sveltejs/kit';

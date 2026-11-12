@@ -69,8 +69,8 @@ export function inlineShikiCodeblocks() {
 				out = out.slice(0, index) + replacement + out.slice(index + len);
 			}
 
-			out = out.replace(/^\s*import CodeBlock from '\$lib\/CodeBlock\.svelte';\n?/m, '');
-			out = out.replace(/^\s*import CodeBlock from "\$lib\/CodeBlock\.svelte";\n?/m, '');
+			out = out.replace(/^\s*import CodeBlock from '\#lib\/CodeBlock\.svelte';\n?/m, '');
+			out = out.replace(/^\s*import CodeBlock from "\#lib\/CodeBlock\.svelte";\n?/m, '');
 
 			return { code: out, map: null };
 		}

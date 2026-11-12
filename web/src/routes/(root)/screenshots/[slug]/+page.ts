@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { fetchScreenshots, loadScreenshot } from '$lib/screenshots';
+import { fetchScreenshots, loadScreenshot } from '#lib/screenshots';
 import type { EntryGenerator, PageLoad } from './$types';
 
 export const entries: EntryGenerator = async () => {

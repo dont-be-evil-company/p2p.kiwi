@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '@fortawesome/fontawesome-free/css/all.css';
-	import HeadComponent from '$lib/HeadComponent.svelte';
+	import HeadComponent from '#lib/HeadComponent.svelte';
 
 	const handleAnchorClick = (evt: Event) => {
 		evt.preventDefault();
