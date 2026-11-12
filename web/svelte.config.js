@@ -2,7 +2,7 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 import rehypeSlug from 'rehype-slug';
-import { getMdsvexShikiHighlighter } from '@mistweaverco/mdsvex-shiki';
+import { getMdsvexShikiHighlighter } from '@dont-be-evil-company/mdsvex-shiki';
 
 const highlighter = await getMdsvexShikiHighlighter({
 	displayLanguage: true,

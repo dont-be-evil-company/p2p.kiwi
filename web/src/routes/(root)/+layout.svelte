@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../../app.css';
-	import '@mistweaverco/mdsvex-shiki/styles.css';
-	import { copyAction } from '@mistweaverco/mdsvex-shiki/copyAction';
+	import '@dont-be-evil-company/mdsvex-shiki/styles.css';
+	import { copyAction } from '@dont-be-evil-company/mdsvex-shiki/copyAction';
 
 	let { children } = $props();
 </script>

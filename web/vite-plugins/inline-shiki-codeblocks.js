@@ -1,4 +1,4 @@
-import { getMdsvexShikiHighlighter } from '@mistweaverco/mdsvex-shiki';
+import { getMdsvexShikiHighlighter } from '@dont-be-evil-company/mdsvex-shiki';
 
 const highlighterOptions = {
 	displayLanguage: true,
