@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "warn"
+  },
+  "rules": {
+    "eslint/no-unused-vars": "error"
+  },
+  "ignorePatterns": [
+    "**/*.d.ts",
+    ".vale/**",
+    "build/**",
+    "dist/**",
+    "out/**",
+    "src/i18n/i18n-svelte.ts",
+    "src/i18n/i18n-types.ts",
+    "src/i18n/i18n-util.*"
+  ],
+  "options": {
+    "typeAware": false,
+    "typeCheck": false
+  }
+}

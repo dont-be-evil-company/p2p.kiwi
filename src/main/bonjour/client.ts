@@ -32,41 +32,41 @@ type InviteRedeemResult = {
   peer: { userId: string; username: string | null; devicePublicKey: string }
 }
 
-const persistToken = (token: string | null): void => {
-  writePacked(tokenPath(), token)
+const persistToken = async (token: string | null): Promise<void> => {
+  await writePacked(tokenPath(), token)
 }
 
-const persistDesk = (secret: string | null): void => {
-  writePacked(deskPath(), secret)
+const persistDesk = async (secret: string | null): Promise<void> => {
+  await writePacked(deskPath(), secret)
 }
 
-const readPacked = (file: string): string | null => {
+const readPacked = async (file: string): Promise<string | null> => {
   if (!existsSync(file)) return null
   const packed = readFileSync(file)
   if (!packed.length) return null
   try {
-    return safeStorage.isEncryptionAvailable()
-      ? safeStorage.decryptString(packed)
+    return (await safeStorage.isAsyncEncryptionAvailable())
+      ? (await safeStorage.decryptStringAsync(packed)).result
       : packed.toString('utf8')
   } catch {
     return null
   }
 }
 
-const writePacked = (file: string, value: string | null): void => {
+const writePacked = async (file: string, value: string | null): Promise<void> => {
   mkdirSync(app.getPath('userData'), { recursive: true })
   if (!value) {
     writeFileSync(file, Buffer.alloc(0), { mode: 0o600 })
     return
   }
-  const stored = safeStorage.isEncryptionAvailable()
-    ? safeStorage.encryptString(value)
+  const stored = (await safeStorage.isAsyncEncryptionAvailable())
+    ? await safeStorage.encryptStringAsync(value)
     : Buffer.from(value, 'utf8')
   writeFileSync(file, stored, { mode: 0o600 })
 }
 
-const readToken = (): string | null => readPacked(tokenPath())
-const readDesk = (): string | null => readPacked(deskPath())
+const readToken = async (): Promise<string | null> => readPacked(tokenPath())
+const readDesk = async (): Promise<string | null> => readPacked(deskPath())
 
 export class BonjourClient {
   private token: string | null = null
@@ -98,18 +98,18 @@ export class BonjourClient {
     win.webContents.send(channel, payload)
   }
 
-  configured(serverUrl: string): void {
+  async configured(serverUrl: string): Promise<void> {
     const next = serverUrl.replace(/\/$/, '')
     const changed = Boolean(this.serverUrl) && this.serverUrl !== next
     this.serverUrl = next
     this.http = new TrpcHttp(this.serverUrl)
-    this.token = readToken()
+    this.token = await readToken()
     if (changed) {
       this.deskSecret = null
       this.inviteCallIds.clear()
-      persistDesk(null)
+      await persistDesk(null)
     } else if (!this.deskSecret) {
-      this.deskSecret = readDesk()
+      this.deskSecret = await readDesk()
     }
     void this.ensureDesk()
   }
@@ -187,7 +187,7 @@ export class BonjourClient {
   private async helloDesk(): Promise<void> {
     await this.enqueueDesk(async () => {
       if (!this.http) return
-      const { publicX } = this.identityKeys()
+      const { publicX } = await this.identityKeys()
       const result = await this.http.mutate<{ deskId: string; secret: string }>(
         this.token,
         'invites.hello',
@@ -212,8 +212,8 @@ export class BonjourClient {
     }
   }
 
-  private identityKeys(): { secret: string; publicX: string } {
-    const identity = loadOrCreateIdentity()
+  private async identityKeys(): Promise<{ secret: string; publicX: string }> {
+    const identity = await loadOrCreateIdentity()
     const secret = Buffer.from(identity.privateKey).toString('base64')
     const publicX = encryptionPublicKey(Buffer.from(identity.publicKey).toString('base64'))
     return { secret, publicX }
@@ -221,7 +221,7 @@ export class BonjourClient {
 
   async publishDeviceKey(): Promise<void> {
     const { token, http } = this.require()
-    const { publicX } = this.identityKeys()
+    const { publicX } = await this.identityKeys()
     await http.mutate(token, 'account.setDevicePublicKey', { devicePublicKey: publicX })
   }
 
@@ -408,7 +408,7 @@ export class BonjourClient {
     peerPublicKey: string,
     payload: PlainSignal,
   ): Promise<unknown> {
-    const { secret } = this.identityKeys()
+    const { secret } = await this.identityKeys()
     const ciphertext = encryptEnvelope({
       senderEd25519SecretB64: secret,
       recipientPublicKeyB64: peerPublicKey,
@@ -422,8 +422,8 @@ export class BonjourClient {
     return http.mutate(token, 'calls.signal', { callId, type, ciphertext })
   }
 
-  decryptSignal(ciphertext: string): PlainSignal {
-    const { secret } = this.identityKeys()
+  async decryptSignal(ciphertext: string): Promise<PlainSignal> {
+    const { secret } = await this.identityKeys()
     return decryptEnvelope({
       recipientEd25519SecretB64: secret,
       ciphertextB64: ciphertext,
@@ -458,7 +458,7 @@ export class BonjourClient {
   private async dispatchEvent(payload: BonjourEvent): Promise<void> {
     if (payload.type === 'signal') {
       try {
-        payload.plain = this.decryptSignal(await this.signalCiphertext(payload))
+        payload.plain = await this.decryptSignal(await this.signalCiphertext(payload))
       } catch {
         payload.plain = null
       }

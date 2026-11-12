@@ -150,7 +150,7 @@ if (!hasSingleInstanceLock) {
 
     await createWindow()
     if (MAIN_WINDOW) bonjourClient.attachWindow(MAIN_WINDOW)
-    if (prefs.bonjourEnabled) bonjourClient.configured(prefs.bonjourServerUrl)
+    if (prefs.bonjourEnabled) await bonjourClient.configured(prefs.bonjourServerUrl)
 
     app.on('activate', function () {
       if (BrowserWindow.getAllWindows().length === 0) void createWindow()

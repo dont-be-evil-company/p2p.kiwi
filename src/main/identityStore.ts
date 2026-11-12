@@ -18,13 +18,13 @@ const fingerprint = (publicKey: Uint8Array): string =>
 
 const identityPath = (): string => join(app.getPath('userData'), 'device-identity.bin')
 
-export const loadOrCreateIdentity = (): StoredIdentity => {
+export const loadOrCreateIdentity = async (): Promise<StoredIdentity> => {
   const file = identityPath()
   mkdirSync(app.getPath('userData'), { recursive: true })
   if (existsSync(file)) {
     const packed = readFileSync(file)
-    const raw = safeStorage.isEncryptionAvailable()
-      ? safeStorage.decryptString(packed)
+    const raw = (await safeStorage.isAsyncEncryptionAvailable())
+      ? (await safeStorage.decryptStringAsync(packed)).result
       : packed.toString('utf8')
     const parsed = JSON.parse(raw) as { publicKey: string; privateKey: string }
     const publicKey = Buffer.from(parsed.publicKey, 'base64')
@@ -42,8 +42,8 @@ export const loadOrCreateIdentity = (): StoredIdentity => {
     privateKey: Buffer.from(secretKey).toString('base64'),
   }
   const json = JSON.stringify(record)
-  const stored = safeStorage.isEncryptionAvailable()
-    ? safeStorage.encryptString(json)
+  const stored = (await safeStorage.isAsyncEncryptionAvailable())
+    ? await safeStorage.encryptStringAsync(json)
     : Buffer.from(json, 'utf8')
   writeFileSync(file, stored, { mode: 0o600 })
   return {

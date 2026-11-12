@@ -270,7 +270,7 @@ export const ipcMainHandlersInit = (): void => {
       remoteControlBridge.setHotkey(settings.emergencyHotkey)
     }
     if (settings?.bonjourEnabled && settings?.bonjourServerUrl) {
-      bonjourClient.configured(String(settings.bonjourServerUrl))
+      await bonjourClient.configured(String(settings.bonjourServerUrl))
     }
   })
   ipcMain.handle('getSettings', async (): Promise<SettingsData> => {
